@@ -1,0 +1,85 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display:flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1;
+}
+
+#mediaOverview, #userOverview {
+    height:100%;
+}
+
+.dataTables_info {
+    float: right;
+    padding-top: 0.65em;
+    margin-right: 1em;
+}
+
+.dataTables_filter {
+    text-align: left !important;
+    float: left;
+}
+
+.dataTables_filter label {
+    margin-bottom: 0 !important;
+}
+
+.hidden {
+    display: none;
+}
+
+div.DTS {
+    display: block !important;
+}
+
+div.DTS tbody th,
+div.DTS tbody td {
+    white-space: nowrap;
+}
+
+div.DTS div.DTS_Loading {
+    z-index: 1;
+}
+
+div.DTS div.dataTables_scrollBody {
+    background: repeating-linear-gradient(45deg, #edeeff, #edeeff 10px, white 10px, white 20px);
+}
+
+div.DTS div.dataTables_scrollBody table {
+    z-index: 2;
+}
+
+div.DTS div.dataTables_paginate,
+div.DTS div.dataTables_length {
+    display: none;
+}
+
+div.DTS tr.even, div.DTS tr.even + tr.child {
+    background-color: white;
+}
+
+div.DTS tr.even + tr.child {
+    background-color: white !important;
+}
+
+div.DTS tr.odd, div.DTS tr.odd + tr.child, div.DTS tr.odd + tr.child:hover {
+    background-color: rgb(250, 250, 250);
+}
+
+div.DTS tr.odd + tr.child {
+    background-color: rgb(250, 250, 250) !important;
+}
+
+.dataTables_scrollBody table.dataTable thead .sorting:before, 
+.dataTables_scrollBody table.dataTable thead .sorting_asc:before,
+.dataTables_scrollBody table.dataTable thead .sorting_desc:before, 
+.dataTables_scrollBody table.dataTable thead .sorting_asc_disabled:before, 
+.dataTables_scrollBody table.dataTable thead .sorting_desc_disabled:before {
+    opacity: 0;
+}

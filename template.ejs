@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=525, user-scalable=yes"/>
+    <link href="../../build/icons/256x256.png" rel="icon" type="image/x-icon" />
+    <title>test</title>
+  </head>
+  <body>
+      <nav class="navbar navbar-toggleable-md navbar-expand-sm bg-dark navbar-dark">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          <!-- Brand -->
+          <a class="navbar-brand" href="#">Test</a>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" data-view="mediaOverview" href="#">Medienübersicht</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-view="userOverview" href="#">Benutzerübersicht</a>
+            </li>
+          </ul>
+          </div>
+        </nav>            
+        <div id="content" class="mt-2">
+            <div id="mediaOverview">
+                <table id="mediaOverview_table" class="table nowrap table-striped table-bordered" cellspacing="0" width="100%"></table>                     
+            </div>
+            <div id="userOverview" class="hidden">
+                <table id="userOverview_table" class="table nowrap table-striped table-bordered" cellspacing="0" width="100%"></table>                  
+            </div>
+        </div>
+  </body>
+</html>

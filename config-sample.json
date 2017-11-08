@@ -1,0 +1,19 @@
+{
+    "db" : {
+        "connectionLimit": 10,
+        "host": "127.0.0.1",
+        "port": 3306,
+        "user": "root",
+        "password": "root",
+        "database": "openbibo"
+    },
+    "tls" : {
+        "key": "./private/selfsigned.key",
+        "cert": "./private/selfsigned.crt",
+        "ca": false
+    },
+    "port" : {
+        "websocket" : 9091,
+        "http2" : 9090
+    }
+}

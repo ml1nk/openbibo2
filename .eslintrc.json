@@ -1,0 +1,25 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 8
+    },
+    "rules" : {
+        "require-jsdoc" : "off",
+        "eqeqeq" : "error",
+        "no-console" : "off",
+        "max-len": [1, 100, 4],
+        "no-invalid-this" : "off"
+    },
+    "extends": ["eslint:recommended", "google"],
+    "globals": {
+        "VERSION": true,
+        "VERSION_TIME" : true,
+        "WEBSOCKET": true
+    }
+}
