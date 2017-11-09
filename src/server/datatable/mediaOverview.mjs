@@ -1,7 +1,7 @@
 import {normal} from '../lib/datatable.mjs';
 
 const config = {
-    view: ['id', 'title', 'part', 'author', 'type', 'typeId', 'category', 'categoryId'],
+    view: ['title', 'part', 'author', 'type', 'category', 'id', 'typeId', 'categoryId'],
     search: ['title', 'author'],
     table: 'mediaOverview',
     id: 'id',

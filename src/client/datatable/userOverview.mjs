@@ -1,9 +1,6 @@
 export default {
         'columns': [
             {
-                'visible': false,
-            },
-            {
                 'title': 'Barcode',
             },
             {
@@ -15,6 +12,9 @@ export default {
             {
                 'title': 'Aktiv',
                 'width': '40px',
+            },
+            {
+                'visible': false,
             },
         ],
         'columnDefs': [

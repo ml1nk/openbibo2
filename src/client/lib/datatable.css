@@ -9,6 +9,7 @@ body {
 
 #content {
     flex: 1;
+    min-height:300px;
 }
 
 #mediaOverview, #userOverview {

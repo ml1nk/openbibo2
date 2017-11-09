@@ -1,9 +1,6 @@
 export default {
         'columns': [
             {
-                'visible': false,
-            },
-            {
                 'title': 'Titel',
             },
             {
@@ -16,16 +13,18 @@ export default {
                 'title': 'Typ',
             },
             {
-                'visible': false,
-            },
-            {
                 'title': 'Kategorie',
             },
             {
                 'visible': false,
             },
+            {
+                'visible': false,
+            },
+            {
+                'visible': false,
+            },
         ],
-        'columnDefs': [],
         'order': [[1, 'asc']],
         'name': 'mediaOverview',
 };
