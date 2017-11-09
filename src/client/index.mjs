@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 import lang from './lib/lang.mjs';
 import throttle from './lib/throttle.mjs';
 import $ from 'jquery';
+import 'bootstrap';
 import 'datatables.net';
 
 $.fn.dataTable.util.throttle = throttle;
