@@ -28,5 +28,21 @@
                 "1": "1 Zeile ausgewählt"
             }
         }
+    },
+    "mediaOverview": {
+        "title": "Titel",
+        "part": "Band",
+        "author": "Autor",
+        "type": "Typ",
+        "category": "Kategorie",
+        "button": {
+            "delete": {
+                "title": "Löschen",
+                "yes": "Ja",
+                "no": "Nein",
+                "warning": "Wollen Sie wirklich {{count}} Buch Löschen?",
+                "warning_plural": "Wollen Sie wirklich {{count}} Bücher Löschen?"
+            }
+        }
     }
 }

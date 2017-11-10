@@ -27,8 +27,12 @@ body {
     float: left;
 }
 
-.dataTables_filter label {
-    margin-bottom: 0 !important;
+.dataTables_wrapper .btn {
+    padding: 0.15rem 0.75rem;
+}
+
+.dataTables_wrapper .btn-group {
+    margin-left: 1em;
 }
 
 .hidden {

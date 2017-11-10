@@ -3,7 +3,7 @@ import mediaOverview from './../datatable/mediaOverview.mjs';
 
 import './datatable.css';
 import './../datatable/userOverview.css';
-import i18next from 'i18next';
+import i18next from './lang.mjs';
 
 
 import $ from 'jquery';
@@ -39,6 +39,7 @@ export default (io, name, id) => {
         },
         columns: config.columns,
         columnDefs: config.columnDefs,
+        buttons: config.buttons,
         order: config.order,
         language: i18next.t('datatable', {returnObjects: true}),
         scroller: {
@@ -46,11 +47,35 @@ export default (io, name, id) => {
             boundaryScale: 0.70,
             serverThrottle: 200,
         },
-        dom: '<"wrapper"fi>lrtp',
+        dom: '<"wrapper"fBi>lrtp',
         scrollY: 'auto',
         scrollCollapse: true,
         deferRender: true,
-        responsive: true,
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal( {
+                    header: ( row ) => {
+                        return 'Details';
+                    },
+                } ),
+                renderer: ( api, rowIdx, columns ) => {
+                    let data = api.row(rowIdx).data();
+                    let head = api.settings().init().columns;
+                    let out = '<';
+                    for (let i=0; i<data.length; i++) {
+                        if (head[i].visible===false) {
+                            continue;
+                        }
+                        out+= '<tr>'+
+                                '<td>'+head[i].title+':'+'</td> '+
+                                '<td>'+data[i]+'</td>'+
+                            '</tr>';
+                    }
+ 
+                    return $('<table class="table" />').append( out );
+                }
+            },
+        },
         select: true,
     });
 

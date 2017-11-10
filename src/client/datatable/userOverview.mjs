@@ -25,6 +25,8 @@ export default {
                 'targets': 4,
             },
         ],
-        'order': [[1, 'asc']],
+        'order': [[0, 'asc']],
         'name': 'userOverview',
 };
+
+

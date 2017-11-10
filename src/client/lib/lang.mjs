@@ -4,16 +4,15 @@ import $ from 'jquery';
 import de from './../lang/de.json';
 
 
-export default () => {
+export default (() => {
   i18next.init({
     lng: 'de',
     resources: {
       de: {
-          translation: de,
+        translation: de,
       },
     },
   });
   plugin.init(i18next, $);
-};
-
-// document.title = i18next.t('title');
+  return i18next;
+})();
