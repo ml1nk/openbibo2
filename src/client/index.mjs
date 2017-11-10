@@ -44,6 +44,7 @@ $('.navbar-nav a').click((e)=>{
     let oldView = $('.navbar-nav a.active').removeClass('active').data('view');
     let newView = target.addClass('active').data('view');
     $('#'+oldView).hide();
+    //$('#'+oldView+'_table').dataTable.api().destroy();
     $('#'+newView).show();
     datatable(socket, newView, newView+'_table');
 });

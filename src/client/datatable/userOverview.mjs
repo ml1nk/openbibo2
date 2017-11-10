@@ -1,20 +1,17 @@
 export default {
         'columns': [
             {
-                'title': 'Barcode',
-            },
-            {
                 'title': 'Name',
             },
             {
                 'title': 'E-Mail',
             },
             {
-                'title': 'Aktiv',
-                'width': '40px',
+                'title': 'Barcode',
             },
             {
-                'visible': false,
+                'title': 'Aktiv',
+                'width': '40px',
             },
         ],
         'columnDefs': [
@@ -25,7 +22,8 @@ export default {
                 'targets': 4,
             },
         ],
-        'order': [[0, 'asc']],
+        'buttons': [],
+        'order': [[1, 'asc']],
         'name': 'userOverview',
 };
 

@@ -18,7 +18,7 @@ let enabled = false;
 
 export default (io, name, id) => {
     if (enabled) {
-        enabled.table.api().destroy();
+        enabled.table.api().clear().destroy();
     }
 
     let stopped = false;
@@ -37,8 +37,17 @@ export default (io, name, id) => {
                 callback(result);
             });
         },
-        columns: config.columns,
-        columnDefs: config.columnDefs,
+        columns: [{}].concat(config.columns),
+        columnDefs: [{
+            className: 'control',
+            orderable: false,
+            targets: 0,
+            render: ()=>'',
+        },
+        {
+            className: 'all',
+            targets: [1],
+        }].concat(config.columnDefs),
         buttons: config.buttons,
         order: config.order,
         language: i18next.t('datatable', {returnObjects: true}),
@@ -55,28 +64,32 @@ export default (io, name, id) => {
             details: {
                 display: $.fn.dataTable.Responsive.display.modal( {
                     header: ( row ) => {
-                        return 'Details';
+                        return i18next.t('responsive.details');
                     },
                 } ),
                 renderer: ( api, rowIdx, columns ) => {
                     let data = api.row(rowIdx).data();
                     let head = api.settings().init().columns;
                     let out = '<';
-                    for (let i=0; i<data.length; i++) {
+                    for (let i=1; i<data.length; i++) {
                         if (head[i].visible===false) {
                             continue;
                         }
                         out+= '<tr>'+
                                 '<td>'+head[i].title+':'+'</td> '+
-                                '<td>'+data[i]+'</td>'+
+                                '<td>'+$('<span/>').text(data[i]).html() +'</td> '+
                             '</tr>';
                     }
- 
                     return $('<table class="table" />').append( out );
-                }
+                },
+                type: 'column',
+                target: 0,
             },
         },
-        select: true,
+        select: {
+            style: 'multi',
+            selector: 'td:not(.control)',
+         },
     });
 
     enabled = {
@@ -99,3 +112,4 @@ export default (io, name, id) => {
         }
     });
 }
+;

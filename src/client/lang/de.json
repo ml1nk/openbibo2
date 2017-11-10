@@ -29,6 +29,9 @@
             }
         }
     },
+    "responsive": {
+        "details": "Details"
+    },
     "mediaOverview": {
         "title": "Titel",
         "part": "Band",

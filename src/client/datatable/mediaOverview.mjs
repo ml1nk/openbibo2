@@ -24,9 +24,6 @@ export default {
             {
                 visible: false,
             },
-            {
-                visible: false,
-            },
         ],
         buttons: [
             {
@@ -36,7 +33,7 @@ export default {
                     let rows = dt.rows('.selected');
                     $.confirm({
                         title: i.t('mediaOverview.button.delete.title'),
-                        content:i .t('mediaOverview.button.delete.warning',{ count : rows.count() }),
+                        content: i .t('mediaOverview.button.delete.warning', {count: rows.count()}),
                         buttons: {
                             confirm: {
                                 text: i.t('mediaOverview.button.delete.yes'),
@@ -53,15 +50,18 @@ export default {
                         },
                     });
 
+                    /*
                     let arr = [];
                     $.each(dt.rows('.selected').data(), function() {
                       //  console.log(this);
                         arr.push(this[5]);
                     });
                     console.log(arr);
+                    */
                 },
             },
         ],
-        order: [[0, 'asc']],
+        columnDefs: [],
+        order: [[1, 'asc']],
         name: 'mediaOverview',
 };

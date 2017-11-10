@@ -1,7 +1,7 @@
 import {normal} from '../lib/datatable.mjs';
 
 const config = {
-    view: ['barcode', 'name', 'email', 'active', 'id'],
+    view: ['id', 'name', 'email', 'barcode', 'active'],
     search: ['barcode', 'name', 'email'],
     table: 'userOverview',
     id: 'id',
