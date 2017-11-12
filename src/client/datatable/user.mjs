@@ -1,4 +1,5 @@
-export default {
+export default (io) => {
+    return {
         'columns': [
             {
                 'title': 'Name',
@@ -25,6 +26,7 @@ export default {
         'buttons': [],
         'order': [[1, 'asc']],
         'name': 'user',
+    };
 };
 
 

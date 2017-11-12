@@ -22,7 +22,7 @@ export default (io, name, id) => {
     }
 
     let stopped = false;
-    let config = tables[name];
+    let config = tables[name](io);
     let table = $('#'+id).dataTable({
         serverSide: true,
         ajax: (data, callback) =>{
@@ -30,10 +30,19 @@ export default (io, name, id) => {
                 stopped = false;
                 return;
             }
+
+            let clean = {
+                draw: data.draw,
+                start: data.start,
+                length: data.length,
+                search: data.search,
+                order: data.order,
+            };
+
             io.emit('datatable', {
                 name: config.name,
                 type: 'read',
-                data: data,
+                data: clean,
             }, (result)=> {
                 callback(result);
             });
@@ -111,5 +120,4 @@ export default (io, name, id) => {
             table.api().draw();
         }
     });
-}
-;
+};

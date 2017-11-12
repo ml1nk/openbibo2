@@ -1,16 +1,12 @@
-import {normal} from '../lib/datatable.mjs';
+import {_read} from '../lib/datatable.mjs';
 
-const config = {
+const readConfig = {
     view: ['id', 'name', 'email', 'barcode', 'active'],
     search: ['barcode', 'name', 'email'],
-    table: 'userOverview',
+    table: 'user_overview',
     id: 'id',
 };
 
 export async function read(db, req) {
-    return await normal(config, req, db);
-}
-
-export async function write(db, req) {
-    return await normal(config, req, db);
+    return await _read(readConfig, req, db);
 }

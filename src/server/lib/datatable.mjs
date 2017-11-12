@@ -13,11 +13,12 @@ export default (io, db) => {
 };
 
 async function processing(db, req, callback) {
+
     if (!req.name
     || !req.type
     || !req.data
-    || !tables.hasOwnProperty(req.name)
-    || ['read', 'write'].indexOf(req.type)) {
+    || !tables[req.name]
+    || !tables[req.name][req.type]) {
         return;
     }
 
@@ -29,7 +30,7 @@ async function processing(db, req, callback) {
     callback(res);
 }
 
-export function ordering(order, columns) {
+export function _ordering(order, columns) {
     if (order.length===0) {
         return '';
     }
@@ -44,13 +45,13 @@ export function ordering(order, columns) {
 }
 
 
-export function match(term, columns, db) {
+export function _match(term, columns, db) {
     return term==='' ? '' :
     ' WHERE MATCH (' + columns.join(', ') + ') AGAINST ('+mysql.escape(term)+' IN BOOLEAN MODE)';
 }
 
 
-export function limit(start, length) {
+export function _limit(start, length) {
     let sql = ' LIMIT ' + parseInt(start);
     if (length>0) {
         sql += ', ' + parseInt(length);
@@ -59,12 +60,12 @@ export function limit(start, length) {
 }
 
 
-export function sql(config, req, db) {
+export function _sql(config, req, db) {
     let rows = 'SELECT '+ config.view.join(', ') +' FROM '+config.table;
-    let where = match(req.search.value, config.search, db);
+    let where = _match(req.search.value, config.search, db);
     rows += where;
-    rows += ordering(req.order, config.view);
-    rows += limit(req.start, req.length);
+    rows += _ordering(req.order, config.view);
+    rows += _limit(req.start, req.length);
 
     let filtered = where==='' ? false : 'SELECT COUNT('+config.id+') FROM '+config.table + where;
     let total = 'SELECT COUNT('+config.id+') FROM '+config.table;
@@ -72,7 +73,7 @@ export function sql(config, req, db) {
     return [rows, filtered, total];
 }
 
-export async function execute(rows, filtered, total, db) {
+export async function _execute(rows, filtered, total, db) {
     rows = db.query({
         sql: rows,
         rowsAsArray: true,
@@ -126,7 +127,17 @@ export async function execute(rows, filtered, total, db) {
     };
 }
 
-export async function normal(config, req, db) {
-    let [rows, filtered, total] = sql(config, req, db);
-    return await execute(rows, filtered, total, db);
+export async function _read(config, req, db) {
+    let [rows, filtered, total] = _sql(config, req, db);
+    return await _execute(rows, filtered, total, db);
+}
+
+export async function _del(db, query, params) {
+    try {
+        let [results] = await db.query(query, params);
+        return results.affectedRows;
+    } catch (e) {
+        console.error(e);
+    }
+    return false;
 }

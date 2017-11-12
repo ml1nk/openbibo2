@@ -1,7 +1,8 @@
 import i from './../lib/lang.mjs';
 import $ from 'jquery';
 
-export default {
+export default (io) => {
+    return {
         columns: [
             {
                 title: i.t('media.title'),
@@ -30,6 +31,12 @@ export default {
                 text: i.t('media.button.delete.title'),
                 extend: 'selected',
                 action: ( e, dt, node, config ) => {
+
+                    let arr = [];
+                    $.each(dt.rows('.selected').data(), function() {
+                        arr.push(this[0]);
+                    });
+
                     let rows = dt.rows('.selected');
                     $.confirm({
                         title: i.t('media.button.delete.title'),
@@ -38,30 +45,25 @@ export default {
                             confirm: {
                                 text: i.t('media.button.delete.yes'),
                                 action: () => {
-                                    $.alert('Confirmed!');
+                                    io.emit('datatable', {
+                                        data: arr,
+                                        type: 'del',
+                                        name: 'media',
+                                    }, (res)=>{
+                                        dt.draw();
+                                    });
                                 },
                             },
                             cancel: {
                                 text: i.t('media.button.delete.no'),
-                                action: () => {
-                                    $.alert('Canceled!');
-                                },
                             },
                         },
                     });
-
-                    /*
-                    let arr = [];
-                    $.each(dt.rows('.selected').data(), function() {
-                      //  console.log(this);
-                        arr.push(this[5]);
-                    });
-                    console.log(arr);
-                    */
                 },
             },
         ],
         columnDefs: [],
         order: [[1, 'asc']],
         name: 'media',
+    };
 };
