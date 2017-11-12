@@ -17,12 +17,12 @@
   "dependencies": {
     "@babel/core": "^7.0.0-beta.31",
     "@babel/preset-env": "^7.0.0-beta.31",
+    "@mlink/datatables.net": "^1.10.16",
     "@mlink/datatables.net-scroller": "^2.1.4",
     "babel-loader": "^8.0.0-beta.0",
     "bootstrap": "^4.0.0-beta.2",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
-    "datatables.net": "^1.10.16",
     "datatables.net-bs4": "^1.10.16",
     "datatables.net-buttons": "^1.4.2",
     "datatables.net-buttons-bs4": "^1.4.2",

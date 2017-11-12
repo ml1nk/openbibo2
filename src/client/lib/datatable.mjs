@@ -91,7 +91,6 @@ export default (io, name, id) => {
             selector: 'td:not(.control)',
          },
     });
-
     enabled = {
         table: table,
         id: id,

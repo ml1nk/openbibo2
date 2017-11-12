@@ -648,6 +648,14 @@
         "to-fast-properties": "2.0.0"
       }
     },
+    "@mlink/datatables.net": {
+      "version": "1.10.16",
+      "resolved": "https://registry.npmjs.org/@mlink/datatables.net/-/datatables.net-1.10.16.tgz",
+      "integrity": "sha512-Ui+G42Tcsv/RGXuHea10XMb0mATobRSa4gzWvbdyiQRkJNh8g5zFC1ZCOQi/yMaezu5KORYqcXIODKFlHPi35g==",
+      "requires": {
+        "jquery": "3.2.1"
+      }
+    },
     "@mlink/datatables.net-scroller": {
       "version": "2.1.4",
       "resolved": "https://registry.npmjs.org/@mlink/datatables.net-scroller/-/datatables.net-scroller-2.1.4.tgz",

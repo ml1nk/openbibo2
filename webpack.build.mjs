@@ -100,6 +100,9 @@ webpack({
     modules: [
       path.resolve('./node_modules'),
     ],
+    alias: {
+      'datatables.net': '@mlink/datatables.net',
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -126,7 +129,6 @@ webpack({
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery',
-      'window.jQuery': 'jquery',
       'Popper': 'popper.js',
     }),
     new UglifyJSPlugin(

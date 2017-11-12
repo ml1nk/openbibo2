@@ -1,12 +1,10 @@
 import io from 'socket.io-client';
-import throttle from './lib/throttle.mjs';
 import $ from 'jquery';
 import 'bootstrap';
 import 'datatables.net';
 
 window.$ = $;
 
-$.fn.dataTable.util.throttle = throttle;
 
 import 'datatables.net-bs4';
 import '@mlink/datatables.net-scroller';
