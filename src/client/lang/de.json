@@ -32,7 +32,7 @@
     "responsive": {
         "details": "Details"
     },
-    "mediaOverview": {
+    "media": {
         "title": "Titel",
         "part": "Band",
         "author": "Autor",

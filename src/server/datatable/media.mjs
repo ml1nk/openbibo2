@@ -7,6 +7,10 @@ const config = {
     id: 'id',
 };
 
-export default async (db, req) => {
+export async function read(db, req) {
     return await normal(config, req, db);
-};
+}
+
+export async function write(db, req) {
+    return await normal(config, req, db);
+}

@@ -12,7 +12,7 @@ body {
     min-height:300px;
 }
 
-#mediaOverview, #userOverview {
+#media, #user {
     height:100%;
 }
 

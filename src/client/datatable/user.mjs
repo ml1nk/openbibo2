@@ -17,14 +17,14 @@ export default {
         'columnDefs': [
             {
                 'render': function( data, type, row ) {
-                    return data ? '<span class="userOverview"><i class="fa fa-book" aria-hidden="true"></i></span>' : '';
+                    return data ? '<span class="user"><i class="fa fa-book" aria-hidden="true"></i></span>' : '';
                 },
                 'targets': 4,
             },
         ],
         'buttons': [],
         'order': [[1, 'asc']],
-        'name': 'userOverview',
+        'name': 'user',
 };
 
 

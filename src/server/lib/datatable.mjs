@@ -1,13 +1,11 @@
-import userOverview from './../datatable/userOverview.mjs';
-import mediaOverview from './../datatable/mediaOverview.mjs';
-
-
-
 import mysql from 'mysql2';
 
+import * as user from './../datatable/user.mjs';
+import * as media from './../datatable/media.mjs';
+
 const tables = {
-    userOverview: userOverview,
-    mediaOverview: mediaOverview,
+    user: user,
+    media: media,
 };
 
 export default (io, db) => {
@@ -15,8 +13,19 @@ export default (io, db) => {
 };
 
 async function processing(db, req, callback) {
-    let res = await tables[req.name](db, req.data);
-    res.draw = req.data.draw;
+    if (!req.name
+    || !req.type
+    || !req.data
+    || !tables.hasOwnProperty(req.name)
+    || ['read', 'write'].indexOf(req.type)) {
+        return;
+    }
+
+    let res = await tables[req.name][req.type](db, req.data);
+    if ( req.type === 'read' ) {
+        res.draw = req.data.draw;
+    }
+
     callback(res);
 }
 

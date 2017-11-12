@@ -1,16 +1,16 @@
-import userOverview from './../datatable/userOverview.mjs';
-import mediaOverview from './../datatable/mediaOverview.mjs';
+import user from './../datatable/user.mjs';
+import media from './../datatable/media.mjs';
 
 import './datatable.css';
-import './../datatable/userOverview.css';
+import './../datatable/user.css';
 import i18next from './lang.mjs';
 
 
 import $ from 'jquery';
 
 const tables = {
-    userOverview: userOverview,
-    mediaOverview: mediaOverview,
+    user: user,
+    media: media,
 };
 
 let enabled = false;
@@ -32,6 +32,7 @@ export default (io, name, id) => {
             }
             io.emit('datatable', {
                 name: config.name,
+                type: 'read',
                 data: data,
             }, (result)=> {
                 callback(result);

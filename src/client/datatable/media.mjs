@@ -4,19 +4,19 @@ import $ from 'jquery';
 export default {
         columns: [
             {
-                title: i.t('mediaOverview.title'),
+                title: i.t('media.title'),
             },
             {
-                title: i.t('mediaOverview.part'),
+                title: i.t('media.part'),
             },
             {
-                title: i.t('mediaOverview.author'),
+                title: i.t('media.author'),
             },
             {
-                title: i.t('mediaOverview.type'),
+                title: i.t('media.type'),
             },
             {
-                title: i.t('mediaOverview.category'),
+                title: i.t('media.category'),
             },
             {
                 visible: false,
@@ -27,22 +27,22 @@ export default {
         ],
         buttons: [
             {
-                text: i.t('mediaOverview.button.delete.title'),
+                text: i.t('media.button.delete.title'),
                 extend: 'selected',
                 action: ( e, dt, node, config ) => {
                     let rows = dt.rows('.selected');
                     $.confirm({
-                        title: i.t('mediaOverview.button.delete.title'),
-                        content: i .t('mediaOverview.button.delete.warning', {count: rows.count()}),
+                        title: i.t('media.button.delete.title'),
+                        content: i .t('media.button.delete.warning', {count: rows.count()}),
                         buttons: {
                             confirm: {
-                                text: i.t('mediaOverview.button.delete.yes'),
+                                text: i.t('media.button.delete.yes'),
                                 action: () => {
                                     $.alert('Confirmed!');
                                 },
                             },
                             cancel: {
-                                text: i.t('mediaOverview.button.delete.no'),
+                                text: i.t('media.button.delete.no'),
                                 action: () => {
                                     $.alert('Canceled!');
                                 },
@@ -63,5 +63,5 @@ export default {
         ],
         columnDefs: [],
         order: [[1, 'asc']],
-        name: 'mediaOverview',
+        name: 'media',
 };
