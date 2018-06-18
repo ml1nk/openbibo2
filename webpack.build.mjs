@@ -6,7 +6,7 @@ import path from 'path';
 import pack from './package.json';
 import fs from 'fs';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import config from './config.json';
+import config from './src/server/config';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 

@@ -1,7 +1,7 @@
 import mysql from 'mysql2';
 
-import * as user from './../datatable/user.mjs';
-import * as media from './../datatable/media.mjs';
+import * as user from './datatable/user.mjs';
+import * as media from './datatable/media.mjs';
 
 const tables = {
     user: user,

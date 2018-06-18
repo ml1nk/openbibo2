@@ -1,10 +1,11 @@
 import fs from 'fs';
-import socket from './lib/socket.mjs';
-import server from './lib/http2.mjs';
-import mysql from './lib/mysql.mjs';
-import datatable from './lib/datatable.mjs';
-// import {remove} from './lib/auth.mjs';
-import config from './../../config.json';
+import socket from './socket.mjs';
+import server from './http2.mjs';
+import mysql from './mysql.mjs';
+import datatable from './datatable.mjs';
+import auth from './auth.mjs';
+
+import config from './config';
 
 const tls = {
     key: fs.readFileSync(config.tls.key),
@@ -18,14 +19,21 @@ const tls = {
     const db = mysql(config.db);
 
     io.on('connection', (socket) => {
-        datatable(socket, db);
+        const user = {
+            auth: false
+        };
+
+        auth(socket, db, user, config.pepper);
+        datatable(socket, db); // register js access
     });
 
     // console.log(await create(db, "hallo", "test", config.pepper));
     // console.log(await remove(db, 37, "hallo", "test", config.pepper));
 
     ioser.listen(config.port.websocket);
-    ser.listen(config.port.http2);
+    ser.listen(config.port.http2, {
+        wsEngine: 'uws'
+    });
 })();
 
 process.on('unhandledRejection', (error) => {

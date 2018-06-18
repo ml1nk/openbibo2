@@ -5,7 +5,7 @@ import BundleAnalyzer from 'webpack-bundle-analyzer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import pack from './package.json';
-import config from './config.json';
+import config from './src/server/config';
 import fs from 'fs';
 
 const version = JSON.stringify(pack).version;

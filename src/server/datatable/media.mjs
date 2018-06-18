@@ -1,4 +1,4 @@
-import {_read, _del} from '../lib/datatable.mjs';
+import {_read, _del} from '../datatable.mjs';
 
 const config = {
     view: ['id', 'title', 'part', 'author', 'type', 'category', 'typeId', 'categoryId'],

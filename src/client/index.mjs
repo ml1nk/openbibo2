@@ -5,7 +5,6 @@ import 'datatables.net';
 
 window.$ = $;
 
-
 import 'datatables.net-bs4';
 import '@mlink/datatables.net-scroller';
 import 'datatables.net-buttons';
@@ -14,7 +13,6 @@ import 'datatables.net-select';
 import 'datatables.net-responsive';
 import 'datatables.net-responsive-bs4';
 import 'jquery-confirm/js/jquery-confirm.js';
-
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'jquery-confirm/css/jquery-confirm.css';
@@ -32,6 +30,7 @@ let socket = io(location.protocol + '//' + location.hostname + ':'+WEBSOCKET, {
     transports: ['websocket'],
     secure: true,
     rejectUnauthorized: false,
+    upgrade: false
 });
 
 $('.navbar-nav a').click((e)=>{
@@ -49,6 +48,15 @@ $('.navbar-nav a').click((e)=>{
 
 let view = $('.navbar-nav a.active').data('view');
 datatable(socket, view, view+'_table');
+
+/*
+socket.emit("auth/create",{username:"test", password:"42", forename: "Max", surname:"Muster"},(a)=>{
+    console.log(a);
+});
+socket.emit("auth/login",{username:"test", password:"42"},(a)=>{
+    console.log(a);
+});
+*/
 
 window.socket = socket;
 

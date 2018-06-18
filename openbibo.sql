@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.5
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 12, 2017 at 09:54 PM
--- Server version: 10.2.10-MariaDB-10.2.10+maria~jessie
+-- Generation Time: Jun 18, 2018 at 07:48 PM
+-- Server version: 10.3.4-MariaDB-10.3.4+maria~jessie
 -- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,7 +28,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `borrow`
 --
 
-DROP TABLE IF EXISTS `borrow`;
 CREATE TABLE `borrow` (
   `media_id` int(11) NOT NULL,
   `copy_id` int(11) NOT NULL,
@@ -44,7 +43,6 @@ CREATE TABLE `borrow` (
 -- Table structure for table `configuration`
 --
 
-DROP TABLE IF EXISTS `configuration`;
 CREATE TABLE `configuration` (
   `language` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `design` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -63,7 +61,6 @@ CREATE TABLE `configuration` (
 -- Table structure for table `days_off`
 --
 
-DROP TABLE IF EXISTS `days_off`;
 CREATE TABLE `days_off` (
   `days_off_id` int(11) NOT NULL,
   `date_bigger` int(11) NOT NULL,
@@ -76,17 +73,12 @@ CREATE TABLE `days_off` (
 -- Table structure for table `manager`
 --
 
-DROP TABLE IF EXISTS `manager`;
 CREATE TABLE `manager` (
-  `manager_id` int(11) NOT NULL,
-  `name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` char(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `permissions` int(11) NOT NULL,
-  `lastactivity` int(11) NOT NULL,
-  `salt` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cookie` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `login` int(11) NOT NULL,
-  `lastip` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` int(11) NOT NULL,
+  `username` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` binary(96) NOT NULL,
+  `forename` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surname` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -95,7 +87,6 @@ CREATE TABLE `manager` (
 -- Table structure for table `media`
 --
 
-DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media` (
   `id` int(11) NOT NULL,
   `type` int(11) NOT NULL,
@@ -111,7 +102,6 @@ CREATE TABLE `media` (
 -- Table structure for table `media_category`
 --
 
-DROP TABLE IF EXISTS `media_category`;
 CREATE TABLE `media_category` (
   `id` int(6) NOT NULL,
   `name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -123,7 +113,6 @@ CREATE TABLE `media_category` (
 -- Table structure for table `media_copy`
 --
 
-DROP TABLE IF EXISTS `media_copy`;
 CREATE TABLE `media_copy` (
   `media` int(11) NOT NULL,
   `copy` int(11) NOT NULL,
@@ -136,7 +125,6 @@ CREATE TABLE `media_copy` (
 -- Stand-in structure for view `media_overview`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `media_overview`;
 CREATE TABLE `media_overview` (
 `id` int(11)
 ,`title` varchar(100)
@@ -154,7 +142,6 @@ CREATE TABLE `media_overview` (
 -- Table structure for table `media_type`
 --
 
-DROP TABLE IF EXISTS `media_type`;
 CREATE TABLE `media_type` (
   `id` int(6) NOT NULL,
   `name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -167,7 +154,6 @@ CREATE TABLE `media_type` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `barcode` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -181,7 +167,6 @@ CREATE TABLE `user` (
 -- Stand-in structure for view `user_overview`
 -- (See below for the actual view)
 --
-DROP VIEW IF EXISTS `user_overview`;
 CREATE TABLE `user_overview` (
 `id` int(11)
 ,`barcode` varchar(6)
@@ -229,7 +214,8 @@ ALTER TABLE `days_off`
 -- Indexes for table `manager`
 --
 ALTER TABLE `manager`
-  ADD PRIMARY KEY (`manager_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `media`
@@ -275,31 +261,31 @@ ALTER TABLE `user` ADD FULLTEXT KEY `search` (`barcode`,`name`,`email`);
 -- AUTO_INCREMENT for table `days_off`
 --
 ALTER TABLE `days_off`
-  MODIFY `days_off_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `days_off_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `manager`
 --
 ALTER TABLE `manager`
-  MODIFY `manager_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `media_category`
 --
 ALTER TABLE `media_category`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `media_copy`
 --
 ALTER TABLE `media_copy`
-  MODIFY `copy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `copy` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

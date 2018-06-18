@@ -1,4 +1,4 @@
-import {_read} from '../lib/datatable.mjs';
+import {_read} from '../datatable.mjs';
 
 const readConfig = {
     view: ['id', 'name', 'email', 'barcode', 'active'],
