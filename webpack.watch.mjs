@@ -2,9 +2,9 @@ import webpack from 'webpack';
 import gutil from 'gutil';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BundleAnalyzer from 'webpack-bundle-analyzer';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import pack from './package.json';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import config from './config.json';
 import fs from 'fs';
 
@@ -24,9 +24,10 @@ webpack({
     path: path.join(path.resolve(), 'public'),
     filename: 'index.js',
   },
+  mode: 'development',
   devtool: 'inline-source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(txt|csv)$/,
         use: 'raw-loader',
@@ -82,15 +83,10 @@ webpack({
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-            }],
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader"
+        ]
       },
     ],
   },
@@ -118,7 +114,9 @@ webpack({
       openAnalyzer: false,
       analyzerMode: 'static',
     }),
-    new ExtractTextPlugin('index.css'),
+    new MiniCssExtractPlugin({
+      filename: 'index.css',
+    }),
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery',

@@ -5,7 +5,7 @@ import BundleAnalyzer from 'webpack-bundle-analyzer';
 import path from 'path';
 import pack from './package.json';
 import fs from 'fs';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import config from './config.json';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
@@ -26,8 +26,9 @@ webpack({
     filename: 'index.js',
   },
   devtool: 'source-map',
+  mode: 'production',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(txt|csv)$/,
         use: 'raw-loader',
@@ -83,16 +84,15 @@ webpack({
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-              minimize: true,
+              sourceMap: true
             },
-            }],
-        }),
+          },
+        ]
       },
     ],
   },
@@ -125,7 +125,9 @@ webpack({
       openAnalyzer: false,
       analyzerMode: 'static',
     }),
-    new ExtractTextPlugin('index.css'),
+    new MiniCssExtractPlugin({
+      filename: 'index.css',
+    }),
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery',
@@ -152,7 +154,6 @@ webpack({
             hoist_funs: true,
             if_return: true,
             join_vars: true,
-            cascade: true,
             drop_console: true,
           },
         },
@@ -163,6 +164,10 @@ webpack({
           discardComments: {
             removeAll: true,
           },
+          map: {
+            inline: false
+          },
+          sourcemap: true,
         },
         canPrint: true,
       }),
