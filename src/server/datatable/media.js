@@ -1,6 +1,6 @@
 
 const config = {
-    view: ['id', 'title', 'part', 'author', 'type', 'category', 'typeId', 'categoryId'],
+    view: ['id', 'title', 'part', 'author', 'type_name', 'category_name', 'type', 'category'],
     search: ['title', 'author'],
     table: 'media_overview',
     id: 'id',

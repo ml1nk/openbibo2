@@ -1,4 +1,4 @@
-const readConfig = {
+const config = {
     view: ['id', 'name', 'email', 'barcode', 'active'],
     search: ['barcode', 'name', 'email'],
     table: 'user_overview',

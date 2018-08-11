@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jun 18, 2018 at 07:48 PM
--- Server version: 10.3.4-MariaDB-10.3.4+maria~jessie
+-- Generation Time: Aug 11, 2018 at 05:49 PM
+-- Server version: 10.2.12-MariaDB-10.2.12+maria~jessie
 -- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -130,10 +130,10 @@ CREATE TABLE `media_overview` (
 ,`title` varchar(100)
 ,`part` varchar(100)
 ,`author` varchar(100)
-,`type` varchar(40)
-,`typeId` int(11)
-,`category` varchar(40)
-,`categoryId` int(11)
+,`type_name` varchar(40)
+,`type` int(11)
+,`category_name` varchar(40)
+,`category` int(11)
 );
 
 -- --------------------------------------------------------
@@ -144,9 +144,20 @@ CREATE TABLE `media_overview` (
 
 CREATE TABLE `media_type` (
   `id` int(6) NOT NULL,
-  `name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `picture` int(11) NOT NULL
+  `name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `media_type_overview`
+-- (See below for the actual view)
+--
+CREATE TABLE `media_type_overview` (
+`id` int(6)
+,`name` varchar(40)
+,`uses` bigint(21)
+);
 
 -- --------------------------------------------------------
 
@@ -155,7 +166,7 @@ CREATE TABLE `media_type` (
 --
 
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `barcode` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -182,7 +193,16 @@ CREATE TABLE `user_overview` (
 --
 DROP TABLE IF EXISTS `media_overview`;
 
-CREATE ALGORITHM=MERGE DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `media_overview`  AS  select `a`.`id` AS `id`,`a`.`title` AS `title`,`a`.`series` AS `part`,`a`.`author` AS `author`,`b`.`name` AS `type`,`a`.`type` AS `typeId`,`c`.`name` AS `category`,`a`.`category` AS `categoryId` from ((`media` `a` left join `media_type` `b` on(`a`.`type` = `b`.`id`)) left join `media_category` `c` on(`a`.`category` = `c`.`id`)) ;
+CREATE ALGORITHM=MERGE DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `media_overview`  AS  select `a`.`id` AS `id`,`a`.`title` AS `title`,`a`.`series` AS `part`,`a`.`author` AS `author`,`b`.`name` AS `type_name`,`a`.`type` AS `type`,`c`.`name` AS `category_name`,`a`.`category` AS `category` from ((`media` `a` left join `media_type` `b` on(`a`.`type` = `b`.`id`)) left join `media_category` `c` on(`a`.`category` = `c`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `media_type_overview`
+--
+DROP TABLE IF EXISTS `media_type_overview`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `media_type_overview`  AS  select `a`.`id` AS `id`,`a`.`name` AS `name`,count(`b`.`type`) AS `uses` from (`media_type` `a` left join `media` `b` on(`a`.`id` = `b`.`type`)) group by `a`.`id` ;
 
 -- --------------------------------------------------------
 
@@ -191,7 +211,7 @@ CREATE ALGORITHM=MERGE DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `media_overv
 --
 DROP TABLE IF EXISTS `user_overview`;
 
-CREATE ALGORITHM=MERGE DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `user_overview`  AS  select `a`.`user_id` AS `id`,`a`.`barcode` AS `barcode`,`a`.`name` AS `name`,`a`.`email` AS `email`,(select count(`borrow`.`user_id`) from `borrow` where `borrow`.`user_id` = `a`.`user_id`) AS `active` from `user` `a` ;
+CREATE ALGORITHM=MERGE DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `user_overview`  AS  select `a`.`id` AS `id`,`a`.`barcode` AS `barcode`,`a`.`name` AS `name`,`a`.`email` AS `email`,(select count(`borrow`.`user_id`) from `borrow` where `borrow`.`user_id` = `a`.`id`) AS `active` from `user` `a` ;
 
 --
 -- Indexes for dumped tables
@@ -250,7 +270,7 @@ ALTER TABLE `media_type`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`id`);
 ALTER TABLE `user` ADD FULLTEXT KEY `search` (`barcode`,`name`,`email`);
 
 --
@@ -267,19 +287,19 @@ ALTER TABLE `days_off`
 -- AUTO_INCREMENT for table `manager`
 --
 ALTER TABLE `manager`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `media_category`
 --
 ALTER TABLE `media_category`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `media_copy`
