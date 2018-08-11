@@ -1,7 +1,7 @@
-import https from 'https';
-import socket from 'socket.io';
+const https = require('https');
+const socket = require('socket.io');
 
-export default (options) => {
+module.exports = (options) => {
     const server = https.createServer({
         key: options.key,
         cert: options.cert,

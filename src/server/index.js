@@ -1,11 +1,10 @@
-import fs from 'fs';
-import socket from './socket.mjs';
-import server from './http2.mjs';
-import mysql from './mysql.mjs';
-import datatable from './datatable.mjs';
-import auth from './auth.mjs';
-
-import config from './config';
+const fs = require('fs');
+const socket = require('./lib/socket.js');
+const server = require('./lib/http2.js');
+const mysql = require('./lib/mysql.js');
+const datatable = require('./lib/datatable.js');
+const auth = require('./lib/auth.js');
+const config = require('./lib/config.js');
 
 const tls = {
     key: fs.readFileSync(config.tls.key),

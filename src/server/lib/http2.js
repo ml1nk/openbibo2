@@ -1,14 +1,14 @@
-import http2 from 'http2';
-import fs from 'fs-extra';
-import mime from 'mime';
-import walker from 'walker';
+const http2 = require('http2');
+const fs = require('fs-extra');
+const mime = require('mime');
+const walker = require('walker/lib/walker');
 
 
 const {
     HTTP2_HEADER_PATH,
   } = http2.constants;
 
-export default async (options, path) => {
+module.exports  = async (options, path) => {
     const ser = http2.createSecureServer(options);
     const files = [];
     const obj = {};

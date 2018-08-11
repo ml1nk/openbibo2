@@ -1,14 +1,14 @@
-import mysql from 'mysql2';
+const mysql = require('mysql2');
+const requireDir = require('require-dir');
 
-import * as user from './datatable/user.mjs';
-import * as media from './datatable/media.mjs';
+const tables = requireDir("./../datatable");
 
-const tables = {
-    user: user,
-    media: media,
-};
+const helper = {
+    del : del,
+    read : read
+}
 
-export default (io, db) => {
+module.exports = (io, db) => {
     io.on('datatable', processing.bind(null, db));
 };
 
@@ -22,7 +22,7 @@ async function processing(db, req, callback) {
         return;
     }
 
-    let res = await tables[req.name][req.type](db, req.data);
+    let res = await tables[req.name][req.type](db, helper, req.data);
     if ( req.type === 'read' ) {
         res.draw = req.data.draw;
     }
@@ -30,7 +30,7 @@ async function processing(db, req, callback) {
     callback(res);
 }
 
-export function _ordering(order, columns) {
+function _ordering(order, columns) {
     if (order.length===0) {
         return '';
     }
@@ -45,13 +45,13 @@ export function _ordering(order, columns) {
 }
 
 
-export function _match(term, columns, db) {
+function _match(term, columns, db) {
     return term==='' ? '' :
     ' WHERE MATCH (' + columns.join(', ') + ') AGAINST ('+mysql.escape(term)+' IN BOOLEAN MODE)';
 }
 
 
-export function _limit(start, length) {
+function _limit(start, length) {
     let sql = ' LIMIT ' + parseInt(start);
     if (length>0) {
         sql += ', ' + parseInt(length);
@@ -60,7 +60,7 @@ export function _limit(start, length) {
 }
 
 
-export function _sql(config, req, db) {
+function _sql(config, req, db) {
     let rows = 'SELECT '+ config.view.join(', ') +' FROM '+config.table;
     let where = _match(req.search.value, config.search, db);
     rows += where;
@@ -73,7 +73,7 @@ export function _sql(config, req, db) {
     return [rows, filtered, total];
 }
 
-export async function _execute(rows, filtered, total, db) {
+async function _execute(rows, filtered, total, db) {
     rows = db.query({
         sql: rows,
         rowsAsArray: true,
@@ -127,16 +127,16 @@ export async function _execute(rows, filtered, total, db) {
     };
 }
 
-export async function _read(config, req, db) {
+async function read(config, req, db) {
     let [rows, filtered, total] = _sql(config, req, db);
     return await _execute(rows, filtered, total, db);
 }
 
-export async function _del(db, query, params) {
+async function del(db, query, params) {
     try {
         let [results] = await db.query(query, params);
         return results.affectedRows;
-    } catch (e) {
+    } catch (e) {s
         console.error(e);
     }
     return false;

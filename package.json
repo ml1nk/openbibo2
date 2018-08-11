@@ -4,10 +4,10 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch config.json --watch src/server --watch src/shared --watch public --watch private -e js,html,css,mjs --experimental-modules src/server/index.mjs",
-    "live": "NODE_ENV=production node --experimental-modules src/server/index.mjs",
-    "build": "NODE_ENV=production node --experimental-modules webpack.build.mjs",
-    "watch": "node --experimental-modules webpack.watch.mjs"
+    "dev": "nodemon --watch config.json --watch src/server --watch src/shared --watch public --watch private -e js,html,css,mjs src/server/index.js",
+    "live": "NODE_ENV=production node src/server/index.js",
+    "build": "NODE_ENV=production node webpack.build.js",
+    "watch": "node webpack.watch.js"
   },
   "author": {
     "name": "Marcel Link",
@@ -44,6 +44,7 @@
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "popper.js": "^1.14.3",
     "raw-loader": "^0.5.1",
+    "require-dir": "^1.0.0",
     "socket.io": "^2.1.1",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",

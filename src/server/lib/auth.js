@@ -1,6 +1,6 @@
-import * as auth from './mysql/auth.mjs';
+const auth = require('../mysql/auth.js');
 
-export default function socket(so, db, user, pepper) {
+module.exports = (so, db, user, pepper) => {
     so.on('auth/login', async (obj, cb)=>{
        user.auth=await auth.login(db, obj.username, obj.password, pepper);
        if(cb) cb(user.auth);
